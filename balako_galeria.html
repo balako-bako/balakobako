@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Álbum de Fotos Interativo</title>
+	
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
+</style>
+	<style>
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 15px;
+    overflow: hidden;
+    padding-top: 25px;
+	display: flex;
+	justify-content: center;}
+
+    ul li {
+    float: none;}
+
+    ul li a {
+    color: #f946a4;
+    padding: 15px 17px;
+    display: block;
+    font-family: "lexend", system-ui;
+    font-size: 30px;
+    text-align: center;
+	text-decoration: none;
+	background-color: white;}
+
+    ul li a:hover:not(.active) {
+    background-color: #b7e022;
+	color: #0b92ce;}
+
+    ul li a.active {
+    color: white;
+    background-color: #f946a4;
+	text-shadow: 2px 2px black;}
+
+        body {
+            font-family: 'lexend', sans-serif;
+			font-style: normal;
+            background-image: url(imagens/bckg_03.png);
+            min-height: 100vh;
+            padding: 5px;
+        }
+	
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            height: calc(100vh - 40px);
+        }
+
+        /* --- Estilos do Álbum --- */
+        .album-section {
+            background: #99dee0;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow-y: auto; /* Álbum scrollável */
+        }
+
+        .album-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #0b92ce;
+			color: #99dee0;
+			font-size: 20px;
+        }
+		
+		.album-header p {
+            color: black;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+		.album-header h1{
+            color: black;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .page-title {
+            text-align: center;
+            color: white;
+            font-size: 30px;
+            margin-bottom: 30px;
+            font-style: none;
+			text-shadow: 2px 2px 2px #f946a4;
+        }
+
+        /* Paginação do Álbum */
+        .album-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .nav-btn {
+            background: #0b92ce;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+			font-family: 'lexend', sans-serif;
+			text-shadow: 2px 2px 2px black;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #ff8dcc;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .album-page {
+            display: none;
+            background: white;
+            border: 5px solid #0b92ce;
+            border-radius: 10px;
+            padding: 40px;
+            min-height: 700px;
+            background-image: url("imagens/bckgrd_pattern.jpg");
+        }
+
+        .album-page.active {
+            display: block;
+        }
+
+        /* Grid de fotos no álbum */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .photo-slot {
+            aspect-ratio: 4/3;
+            background: #ff8dcc;
+            border: 8px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+			border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-slot:hover {
+            transform: scale(1.02);
+        }
+
+        .photo-slot.dragover {
+            border-color: #0b92ce;
+        }
+
+        .photo-slot.empty::before {
+            content: 'adicione sua foto';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .remove-photo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .photo-slot:hover .remove-photo {
+            display: block;
+        }
+
+        /* --- Estilos da Galeria Lateral --- */
+        .gallery-section {
+            background: #99dee0;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #0b92ce;
+        }
+
+        .gallery-header h2 {
+            color: black;
+            font-size: 28px;
+        }
+
+        .gallery-header p {
+            color: black;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+        .gallery-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1; /* Permite que o container se expanda e separe as coisas */
+        }
+
+        /* O grid da galeria não tem scroll, os botões controlam o conteúdo */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            overflow: hidden; /* Esconde fotos que não estão na página atual */
+            height: 100%;
+            max-height: 500px; /* Altura fixa para o grid */
+            padding-bottom: 20px;
+        }
+        
+        /* Fotos da Galeria */
+        .gallery-item {
+            aspect-ratio: 1;
+            background: #f0f0f0;
+            border: 3px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: grab;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            border-color: #ff8dcc;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .gallery-nav-btn {
+            background: #0b92ce;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'lexend', sans-serif;
+            transition: background 0.3s ease;
+			text-shadow: 2px 2px 2px black;
+        }
+
+        .gallery-nav-btn:hover:not(:disabled) {
+            background: #ff8dcc;
+        }
+        
+        .gallery-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        /* Estilo para itens removidos (Escondidos) */
+        .gallery-item.removed {
+            display: none !important;
+        }
+
+
+        /* --- Estilos do Modal (Visualização Ampliada) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-insert-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0b92ce;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            /* Esconde por padrão, só aparece para fotos da Galeria */
+            display: none;
+        }
+		
+		.modal-insert-btn:hover:not(:disabled) {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff8dcc;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            /* Esconde por padrão, só aparece para fotos da Galeria */
+            display: none;
+        }
+        
+        /* Scrollbar customizada */
+        .album-section::-webkit-scrollbar {
+            width: 8px;
+        }
+        .album-section::-webkit-scrollbar-thumb {
+            background: #0b92ce;
+            border-radius: 10px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+            }
+
+            .gallery-section {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+     <ul> 
+            <li><a class="active" href="balako_galeria.html">Memórias</a></li>
+            <li><a href="convite.html">Convite</a></li>
+            <li><a href="coisas.html">Coisas</a></li>
+        </ul>
+
+    <div class="container">
+        <div class="album-section">
+            <div class="album-header">
+              <h1><img src="imagens/blkbk_logo.png" height="100" weight="200"></h1>
+<p>Monte o álbum de memórias das Maevinhas!!</p>
+                <div class="album-navigation">
+                    <button class="nav-btn" id="prevPageBtn" onclick="changeAlbumPage(-1)">← Anterior</button>
+                    <span id="pageIndicator" style="align-self: center; color: white; text-shadow: 1px 2px 2px black">Página 1 de N</span>
+                    <button class="nav-btn" id="nextPageBtn" onclick="changeAlbumPage(1)">Próxima →</button>
+                </div>
+            </div>
+
+            <div id="albumPages"></div>
+        </div>
+
+        <div class="gallery-section">
+            <div class="gallery-header">
+                <h2>FOTOS DA FESTA</h2>
+                <p>Escolha sua foto e leve até o álbum. (clique duas vezes para vizualizar melhor) <br></p>
+            </div>
+            
+            <div class="gallery-container">
+                <div class="gallery-grid" id="galleryGrid">
+                    </div>
+                
+                <div class="gallery-navigation">
+                    <button class="gallery-nav-btn" id="prevGalleryBtn" onclick="changeGalleryPage(-1)">← Anterior</button>
+                    <span id="galleryPageIndicator" style="align-self: center; font-size: 13px; color: white; text-shadow: 1px 2px 2px black">Página 1 de N</span>
+                    <button class="gallery-nav-btn" id="nextGalleryBtn" onclick="changeGalleryPage(1)">Próxima →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <div class="modal-content">
+            <img id="modalImg" src="" alt="Foto ampliada">
+            <button class="modal-insert-btn" id="modalInsertBtn" onclick="insertFromModal()">Inserir no Álbum</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURAÇÕES E VARIÁVEIS GLOBAIS
+        // ============================================
+        const TOTAL_PHOTOS = 54;
+        const ALBUM_PHOTOS_PER_PAGE = 4;
+        const GALLERY_PHOTOS_PER_PAGE = 6; // 2 colunas x 3 linhas
+        
+        const TOTAL_ALBUM_PAGES = Math.ceil(TOTAL_PHOTOS / ALBUM_PHOTOS_PER_PAGE);
+        let TOTAL_GALLERY_PAGES = 0; // Calculado após a criação da galeria
+        
+        let currentAlbumPage = 0;
+        let currentGalleryPage = 0;
+        
+        let draggedPhotoSrc = null;
+        let photoData = []; // Armazenará os dados de todas as fotos da galeria
+
+        // ============================================
+        // CRIAÇÃO DINÂMICA DO ÁLBUM E GALERIA
+        // ============================================
+
+        function createAlbum() {
+            const albumPages = document.getElementById('albumPages');
+            
+            for (let page = 0; page < TOTAL_ALBUM_PAGES; page++) {
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'album-page';
+                pageDiv.id = `page-${page}`;
+                
+                if (page === 0) pageDiv.classList.add('active');
+                
+                const pageTitle = document.createElement('div');
+                pageTitle.className = 'page-title';
+                pageTitle.textContent = `Página ${page + 1}`;
+                pageDiv.appendChild(pageTitle);
+                
+                const photoGrid = document.createElement('div');
+                photoGrid.className = 'photo-grid';
+                
+                for (let slot = 0; slot < ALBUM_PHOTOS_PER_PAGE; slot++) {
+                    const slotIndex = page * ALBUM_PHOTOS_PER_PAGE + slot;
+                    
+                    const photoSlot = document.createElement('div');
+                    photoSlot.className = 'photo-slot empty';
+                    photoSlot.dataset.slotId = slotIndex;
+                    
+                    // Configurações de Drag and Drop
+                    photoSlot.addEventListener('dragover', handleDragOver);
+                    photoSlot.addEventListener('dragleave', handleDragLeave);
+                    photoSlot.addEventListener('drop', handleDrop);
+                    
+                    // Duplo clique para visualizar a foto já inserida
+                    photoSlot.addEventListener('dblclick', function() {
+                        const img = this.querySelector('img');
+                        if (img) {
+                            openModal(img.src, false); // Não é da galeria, esconde o botão de inserir
+                        }
+                    });
+
+                    // Remove a opção de selecionar slot. O clique não faz nada em slots vazios.
+                    
+                    photoGrid.appendChild(photoSlot);
+                }
+                
+                pageDiv.appendChild(photoGrid);
+                albumPages.appendChild(pageDiv);
+            }
+        }
+
+        function createGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            
+            for (let i = 1; i <= TOTAL_PHOTOS; i++) {
+                const photoNum = String(i).padStart(2, '0');
+                const imgSrc = `imagens/blk_${photoNum}.jpg`; 
+                const photoId = `photo-${i}`;
+
+                photoData.push({ id: photoId, src: imgSrc, page: Math.floor((i - 1) / GALLERY_PHOTOS_PER_PAGE), inserted: false });
+            }
+            
+            TOTAL_GALLERY_PAGES = Math.ceil(photoData.length / GALLERY_PHOTOS_PER_PAGE);
+            
+            renderGalleryPage(currentGalleryPage);
+        }
+
+        // ============================================
+        // RENDERIZAÇÃO E NAVEGAÇÃO DA GALERIA
+        // ============================================
+
+        function renderGalleryPage(page) {
+            const galleryGrid = document.getElementById('galleryGrid');
+            galleryGrid.innerHTML = '';
+            
+            const startIndex = page * GALLERY_PHOTOS_PER_PAGE;
+            const endIndex = startIndex + GALLERY_PHOTOS_PER_PAGE;
+            
+            const photosToShow = photoData.slice(startIndex, endIndex);
+            
+            photosToShow.forEach(data => {
+                // Cria apenas se não tiver sido inserida no álbum
+                if (!data.inserted) {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.id = data.id;
+                    galleryItem.draggable = true;
+                    
+                    const img = document.createElement('img');
+                    img.src = data.src;
+                    img.alt = `Foto ${data.id}`;
+                    img.dataset.photoSrc = data.src;
+                    
+                    // Eventos Drag
+                    galleryItem.addEventListener('dragstart', handleDragStart);
+                    galleryItem.addEventListener('dragend', handleDragEnd);
+                    
+                    // Duplo clique para visualizar e inserir
+                    galleryItem.addEventListener('dblclick', function() {
+                        openModal(data.src, true);
+                    });
+                    
+                    galleryItem.appendChild(img);
+                    galleryGrid.appendChild(galleryItem);
+                }
+            });
+            
+            updateGalleryNavigation();
+        }
+
+        function changeGalleryPage(direction) {
+            const newPage = currentGalleryPage + direction;
+            
+            if (newPage < 0 || newPage >= TOTAL_GALLERY_PAGES) return;
+            
+            currentGalleryPage = newPage;
+            renderGalleryPage(currentGalleryPage);
+        }
+
+        function updateGalleryNavigation() {
+            document.getElementById('prevGalleryBtn').disabled = currentGalleryPage === 0;
+            document.getElementById('nextGalleryBtn').disabled = currentGalleryPage === TOTAL_GALLERY_PAGES - 1;
+            document.getElementById('galleryPageIndicator').textContent = `Página ${currentGalleryPage + 1} de ${TOTAL_GALLERY_PAGES}`;
+        }
+
+
+        // ============================================
+        // NAVEGAÇÃO ENTRE PÁGINAS DO ÁLBUM
+        // ============================================
+        function changeAlbumPage(direction) {
+            const newPage = currentAlbumPage + direction;
+            
+            if (newPage < 0 || newPage >= TOTAL_ALBUM_PAGES) return;
+            
+            document.getElementById(`page-${currentAlbumPage}`).classList.remove('active');
+            currentAlbumPage = newPage;
+            document.getElementById(`page-${currentAlbumPage}`).classList.add('active');
+            
+            updateAlbumNavigation();
+            document.querySelector('.album-section').scrollTop = 0; 
+        }
+
+        function updateAlbumNavigation() {
+            document.getElementById('prevPageBtn').disabled = currentAlbumPage === 0;
+            document.getElementById('nextPageBtn').disabled = currentAlbumPage === TOTAL_ALBUM_PAGES - 1;
+            document.getElementById('pageIndicator').textContent = `Página ${currentAlbumPage + 1} de ${TOTAL_ALBUM_PAGES}`;
+        }
+
+        // ============================================
+        // DRAG AND DROP
+        // ============================================
+        let draggedPhotoId = null;
+
+        function handleDragStart(e) {
+            this.classList.add('dragging');
+            draggedPhotoSrc = this.querySelector('img').dataset.photoSrc;
+            draggedPhotoId = this.id; // Armazena o ID da foto da galeria
+            e.dataTransfer.effectAllowed = 'copy';
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            if (this.classList.contains('empty')) { 
+                e.dataTransfer.dropEffect = 'copy';
+                this.classList.add('dragover');
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            
+            const slotId = this.dataset.slotId;
+            if (this.classList.contains('empty') && draggedPhotoSrc) {
+                insertPhoto(slotId, draggedPhotoSrc, draggedPhotoId);
+            }
+            draggedPhotoSrc = null;
+            draggedPhotoId = null;
+        }
+
+        // ============================================
+        // INSERÇÃO E REMOÇÃO DE FOTOS NO ÁLBUM
+        // ============================================
+        function insertPhoto(slotId, photoSrc, photoId) {
+            const slot = document.querySelector(`[data-slot-id="${slotId}"]`);
+            
+            slot.innerHTML = '';
+            slot.classList.remove('empty');
+            slot.dataset.photoId = photoId; // Armazena o ID da foto inserida
+
+            const img = document.createElement('img');
+            img.src = photoSrc;
+            img.alt = 'Foto do álbum';
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-photo';
+            removeBtn.innerHTML = '×';
+            removeBtn.title = 'Remover foto';
+            removeBtn.onclick = function(e) {
+                e.stopPropagation();
+                removePhoto(slotId);
+            };
+            
+            slot.appendChild(img);
+            slot.appendChild(removeBtn);
+            
+            // 1. Remove a foto da lista de dados e renderiza a galeria
+            markPhotoAsInserted(photoId, true);
+        }
+
+        function removePhoto(slotId) {
+            const slot = document.querySelector(`[data-slot-id="${slotId}"]`);
+            const photoId = slot.dataset.photoId; // Pega o ID da foto a ser removida
+
+            slot.innerHTML = '';
+            slot.classList.add('empty');
+            delete slot.dataset.photoId;
+            
+            // 2. Marca a foto como não inserida e renderiza a galeria
+            markPhotoAsInserted(photoId, false);
+        }
+
+        function markPhotoAsInserted(photoId, insertedStatus) {
+            const index = photoData.findIndex(d => d.id === photoId);
+            if (index !== -1) {
+                photoData[index].inserted = insertedStatus;
+                // Força a re-renderização da página atual da galeria
+                renderGalleryPage(currentGalleryPage); 
+            }
+        }
+
+        // ============================================
+        // MODAL DE VISUALIZAÇÃO
+        // ============================================
+        let currentModalImageSrc = null;
+
+        function openModal(imageSrc, isGalleryPhoto) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            const insertBtn = document.getElementById('modalInsertBtn');
+            
+            modalImg.src = imageSrc;
+            currentModalImageSrc = imageSrc;
+            
+            // Só mostra o botão de inserir se a foto vier da galeria
+            insertBtn.style.display = isGalleryPhoto ? 'block' : 'none'; 
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.getElementById('modalInsertBtn').style.display = 'none';
+        }
+
+        function findFirstEmptySlotOnPage() {
+            // Pega todos os slots na página ativa do álbum
+            const activePage = document.getElementById(`page-${currentAlbumPage}`);
+            if (!activePage) return null;
+
+            const emptySlot = activePage.querySelector('.photo-slot.empty');
+            return emptySlot ? emptySlot.dataset.slotId : null;
+        }
+
+        function insertFromModal() {
+            const slotId = findFirstEmptySlotOnPage();
+
+            if (slotId === null) {
+                alert('Não há slots vazios na página atual do álbum. Por favor, avance para uma página vazia ou remova alguma foto.');
+                return;
+            }
+            
+            if (currentModalImageSrc) {
+                // Encontra o ID da foto atual no modal para removê-la da galeria
+                const photoDataEntry = photoData.find(d => d.src === currentModalImageSrc);
+                const photoId = photoDataEntry ? photoDataEntry.id : null;
+
+                if (photoId) {
+                    insertPhoto(slotId, currentModalImageSrc, photoId);
+                    closeModal();
+                } else {
+                    alert('Erro: A origem da foto da galeria não foi encontrada.');
+                }
+            }
+        }
+
+        // ============================================
+        // EVENTOS GLOBAIS
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Navegação de páginas do álbum com setas do teclado
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('modal').classList.contains('active')) return;
+
+            if (e.key === 'ArrowRight') changeAlbumPage(1);
+            if (e.key === 'ArrowLeft') changeAlbumPage(-1);
+        });
+
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+        window.addEventListener('load', () => {
+            createAlbum();
+            createGallery();
+            updateAlbumNavigation();
+        });
+    </script>
+</body>
+</html>

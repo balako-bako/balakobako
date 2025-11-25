@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelador de Convite</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
+</style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 5px;
+    overflow: hidden;
+    top: 0;}
+
+    ul li {
+    float: left;}
+
+    ul li a {
+    color: #f946a4;
+    padding: 15px 17px;
+    display: block;
+    font-family: "lexend", system-ui;
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+	background-color: white;}
+
+    ul li a:hover:not(.active) {
+    background-color: #b7e022;
+	color: #0b92ce;}
+
+    ul li a.active {
+    color: white;
+    background-color: #f946a4;
+	text-shadow: 2px 2px black;}
+
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 10px;
+            background: white;
+            font-family:"lexend", sans-serif;
+            background-image: url(imagens/bckg_02.png);
+        }
+ 
+        p {
+            color: white;
+            margin-bottom: 0px;
+            font-size: 40px;
+			text-shadow: 2px 2px 4px black;
+			padding-top: 50px;
+        }
+
+        .container {
+            perspective: 1000px;
+            width: 1800px;
+            height: 1000px;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+            cursor: pointer;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 80%;
+            backface-visibility: hidden;
+            border-radius: none;
+            overflow: hidden;
+        }
+
+        .card-front {
+            z-index: 2;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul> 
+            <li><a href="balako_galeria.html">Memórias</a></li>
+            <li><a class="active" href="convite.html">Convite</a></li>
+            <li><a href="coisas.html">Coisas</a></li>
+        </ul>
+    <p>VOCÊ FOI CONVIDADO!!</p>
+    
+    <div class="container">
+        <div class="card" id="card">
+            <!-- Frente do convite -->
+            <div class="card-face card-front">
+                <img src="imagens/convite_fechado.png" 
+                     alt="Frente do convite" 
+                     class="image">
+            </div>
+            
+            <!-- Verso do convite -->
+            <div class="card-face card-back">
+                <img src="imagens/convite_aberto.png" 
+                     alt="Verso do convite" 
+                     class="image">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const card = document.getElementById('card');
+
+        card.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+    </script>
+</body>
+</html>

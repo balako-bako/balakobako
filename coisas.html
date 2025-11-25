@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Fotos Sobrepostas</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
+</style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 5px;
+    overflow: hidden;
+    top: 0;}
+
+    ul li {
+    float: left;}
+
+    ul li a {
+    color: #f946a4;
+    padding: 15px 17px;
+    display: block;
+    font-family: "lexend", system-ui;
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+	background-color: white;}
+
+    ul li a:hover:not(.active) {
+    background-color: #b7e022;
+	color: #0b92ce;}
+
+    ul li a.active {
+    color: white;
+    background-color: #f946a4;
+	text-shadow: 2px 2px black;}
+
+        body {
+            background-image: url("imagens/bckgrd_pattern.jpg");
+            min-height: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 20px;}
+		
+		p {
+			color: white;
+			font-family: "lexend", sans-serif;
+			font-size: 40px;}
+		
+		.text-container{
+			background-color: rgba(255,255,255, 0.10);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+		}
+
+       
+    </style>
+</head>
+<body>
+
+    <ul> 
+            <li><a href="balako_galeria.html">Memórias</a></li>
+            <li><a href="convite.html">Convite</a></li>
+            <li><a class="active" href="coisas.html">Sobre</a></li>
+        </ul>
+
+    <h1><img src="imagens/logo_balako.png" width="500px" height="auto" > </h1>
+	
+	<div class="text-container" >
+	<p> Balako bako surgiu da vontade de três amigas em trazer uma nova experiência aos álbuns de música brasileira. 
+	</p></div>
+</body>
+</html>
