@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
 </style>
     <style>
-		
+        
          * {
             margin: 0;
             padding: 0;
@@ -22,7 +22,13 @@
     overflow: hidden;
     padding-top: 25px;
     display: flex;
-    justify-content: center;}
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);}
 
     ul li {
     float: none;}
@@ -48,7 +54,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('./img/fundo.jpg');
+            background-image: url(imagens/backg_03.jpg);
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -59,6 +65,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            padding-top: 120px;
         }
 
         body::before {
@@ -116,7 +123,7 @@
             padding: 12px 30px;
             border-radius: 25px;
             font-weight: 600;
-			font-size: 15px;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -167,11 +174,11 @@
             transition: all 0.4s ease;
             border-bottom: none; 
             position: center;
-			align-content: center;
-			margin-left: auto;
-		    margin-right: auto;
+            align-content: center;
+            margin-left: auto;
+            margin-right: auto;
         }
-		
+        
         .info-card::after {
             content: '';
             position: absolute;
@@ -182,13 +189,13 @@
             background-image: linear-gradient(to right, #ccc 50%, transparent 50%);
             background-size: 10px 1px;
         }
-		
+        
         .info-card.active {
             max-height: 500px;
             opacity: 1;
             margin-top: 10px;
         }
-		
+        
         .info-card h2 {
             color: #f946a4; 
             margin-bottom: 10px;
@@ -204,7 +211,7 @@
             margin-bottom: 10px;
             font-size: 14px; 
         }
-		
+        
        .close-btn {
             background: #f946a4; 
             color: white;
@@ -218,11 +225,11 @@
             display: block; 
             width: 100%;
             font-family: 'Courier New', Courier, monospace; 
-			font-size: 12x;
+            font-size: 12x;
         }
-		
+        
         .close-btn:hover {
-			color: #f946a4;
+            color: #f946a4;
             background: #ffe6f4;
             transform: none; 
             box-shadow: none;
@@ -235,7 +242,7 @@
             margin-top: 15px;
             font-weight: 500;
         }
-		.download-btn {
+        .download-btn {
             background: #f946a4; 
             color: white;
             border: none;
@@ -247,21 +254,30 @@
             box-shadow: none;
             display: block; 
             width: auto ;
-			text-decoration: none; 
-			text-align: center;
-			margin-top: 15px; 
-			margin-bottom: 15px;
-			font-size: 12x;
-		}
+            text-decoration: none; 
+            text-align: center;
+            margin-top: 15px; 
+            margin-bottom: 15px;
+            font-size: 12x;
+        }
 
-		.download-btn:hover {
-			color: #f946a4;
+        .download-btn:hover {
+            color: #f946a4;
             background: #ffe6f4;
             transform: none; 
             box-shadow: none;
-		}
-		
+        }
+        
         @media (max-width: 768px) {
+            ul li a {
+                font-size: 20px;
+                padding: 10px 12px;
+            }
+            
+            body {
+                padding-top: 100px;
+            }
+            
             .image-container {
                 width: 350px;
                 height: 350px;
@@ -279,6 +295,20 @@
         }
 
         @media (max-width: 480px) {
+            ul {
+                padding: 10px 5px;
+                padding-top: 15px;
+            }
+            
+            ul li a {
+                font-size: 16px;
+                padding: 8px 10px;
+            }
+            
+            body {
+                padding-top: 80px;
+            }
+            
             .image-container {
                 width: 280px;
                 height: 280px;
@@ -291,18 +321,18 @@
     </style>
 </head>
 <body>
-    
+
     <ul> 
             <li><a href="balako_galeria.html">Memórias</a></li>
-            <li><a href="convite.html">Convite</a></li>
+            <li><a href="index.html">Convite</a></li>
             <li><a href="coisas.html">Coisas</a></li>
             <li><a class="active" href="amaevinhos.html">Adoção</a></li>
         </ul>
-	
+    
     <div class="gallery-container">
-		
+        
         <div class="gallery-wrapper">
-			
+            
             <button class="arrow" id="prevBtn" aria-label="Imagem anterior">←</button>
             
             <div class="image-container" id="imageContainer">
@@ -318,148 +348,114 @@
         <div class="info-card" id="infoCard">
             <h2 id="cardTitle"></h2>
             <p id="cardDescription"></p>
-			<a id="downloadLink" class="download-btn" href="#" target="_blank">Certificado de adoção!</a> 
+            <a id="downloadLink" class="download-btn" href="#" target="_blank">Certificado de adoção!</a> 
 
-			<button class="close-btn" id="closeBtn">Fechar</button>
+            <button class="close-btn" id="closeBtn">Fechar</button>
         </div>
     </div>
 
     <script>
-		
+        
         const images = [
             {
-                url: './img/yoki.png',
+                url: './imagens/yoki.png',
                 title: 'YOKI',
                 description: 'Parabéns! Seu novo bichinho de estimação é um gato gordo chamado Yoki! Ele é comilão por isso o nome de pipoca. Sua atividade favorita é roubar comidinhas junto do Xoli, ele também tem hiperfoco em papelão.'
             },
             {
-                url: './img/mihree.png',
+                url: './imagens/mihree.png',
                 title: 'MIHRI',
                 description: 'Parabéns! Seu novo bichinho de estimação é uma raposa risonha chamada Mihri! Ela rola no chão quando tem crise de riso, o que acontece (quase) sempre. Se o patuxo estiver por perto pode ter certeza que irá acontecer com mais frequência...'
             },
             {
-                url: './img/patuxo.png',
+                url: './imagens/patuxo.png',
                 title: 'PATUXO',
                 description: 'Parabéns! Seu novo bichinho de estimação é um filhote de ganso chamado Patuxo! As aparências (e o nome também) podem enganar mas ele não é um pato! O processamento dele é um pouco lento (ele pisca um olho de cada vez) mas é só cuidar com carinho que vive bastante!'
             },
             {
-                url: './img/xoli.png',
+                url: './imagens/xoli.png',
                 title: 'XOLI',
                 description: 'Parabéns! Seu novo bichinho de estimação é um guaxinim ladrão (!) chamado Xoli. Não se preocupe que ele só rouba comida, só não bobear com lanchinhos por perto... Ele também recorre ao lixo as vezes, tome cuidado.'
             },
             {
-                url: './img/chilly.png',
+                url: './imagens/chilly.png',
                 title: 'CHILLY',
                 description: 'Parabéns! Seu novo bichinho de estimação é uma coruja sonolenta chamada Chilly. Ele consegue dormir em qualquer canto, podem chamá-lo de Cochilly de tantos cochilos tirados nos mais diversos lugares! Talvez seja a alma de idoso dele, dorme que nem vê.'
             },
             {
-                url: './img/moomooo.png',
+                url: './imagens/moomooo.png',
                 title: 'MOOMOO',
                 description: 'Parabéns! Seu novo bichinho de estimação é uma vaquinha chamada MooMoo, ela ama abraços e de estar por perto. '
             }
         ];
 
-        // ====================
-        // VARIÁVEIS GLOBAIS
-        // ====================
-        let currentIndex = 0; // Índice da imagem atual
-        let isCardOpen = false; // Estado do card de informações
+        let currentIndex = 0;
+        let isCardOpen = false;
 
-        // ====================
-        // ELEMENTOS DO DOM
-        // ====================
-		const mainImage = document.getElementById('mainImage');
-		const imageContainer = document.getElementById('imageContainer');
-		const infoCard = document.getElementById('infoCard');
-		const cardTitle = document.getElementById('cardTitle');
-		const cardDescription = document.getElementById('cardDescription');
-		const positionIndicator = document.getElementById('positionIndicator');
-		const prevBtn = document.getElementById('prevBtn');
-		const nextBtn = document.getElementById('nextBtn');
-		const viewMoreBtn = document.getElementById('viewMoreBtn');
-		const closeBtn = document.getElementById('closeBtn');
-		const openImageLink = document.getElementById('downloadLink');
-        // ====================
-        // FUNÇÃO: Atualizar imagem e informações
-        // ====================
-		function updateGallery() {
-    const current = images[currentIndex];
-    
-    // Fade out
-    mainImage.style.opacity = '0';
-    
-    // Após a transição, atualiza a imagem
-    setTimeout(() => {
-        mainImage.src = current.url;
-        mainImage.alt = current.title;
-        cardTitle.textContent = current.title;
-        cardDescription.textContent = current.description;
-        
-        // CHAVE: Define o HREF para abrir a imagem (Exemplo: ./certs/yoki.jpg)
-        // Você deve ter a pasta 'certs/' com imagens correspondentes (JPG, PNG, etc.)
-        const petName = current.title.toLowerCase();
-        openImageLink.href = `./img/certificado.png`; 
-        
-        // Fade in
-        mainImage.style.opacity = '1';
-    }, 300);
+        const mainImage = document.getElementById('mainImage');
+        const imageContainer = document.getElementById('imageContainer');
+        const infoCard = document.getElementById('infoCard');
+        const cardTitle = document.getElementById('cardTitle');
+        const cardDescription = document.getElementById('cardDescription');
+        const positionIndicator = document.getElementById('positionIndicator');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const viewMoreBtn = document.getElementById('viewMoreBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const openImageLink = document.getElementById('downloadLink');
 
-    // Atualiza indicador de posição
-    positionIndicator.textContent = `${currentIndex + 1} / ${images.length}`;
-    
-    // Fecha o card ao trocar de imagem
-    closeCard();
-}
-/* ... (Mantenha o restante das funções e Event Listeners) ... */
-        // ====================
-        // FUNÇÃO: Navegar para a próxima imagem
-        // ====================
+        function updateGallery() {
+            const current = images[currentIndex];
+            
+            mainImage.style.opacity = '0';
+            
+            setTimeout(() => {
+                mainImage.src = current.url;
+                mainImage.alt = current.title;
+                cardTitle.textContent = current.title;
+                cardDescription.textContent = current.description;
+                
+                const petName = current.title.toLowerCase();
+                openImageLink.href = `./imagens/certificado.png`; 
+                
+                mainImage.style.opacity = '1';
+            }, 300);
+
+            positionIndicator.textContent = `${currentIndex + 1} / ${images.length}`;
+            
+            closeCard();
+        }
+
         function nextImage() {
             currentIndex = (currentIndex + 1) % images.length;
             updateGallery();
         }
 
-        // ====================
-        // FUNÇÃO: Navegar para a imagem anterior
-        // ====================
         function prevImage() {
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             updateGallery();
         }
 
-        // ====================
-        // FUNÇÃO: Abrir card de informações
-        // ====================
         function openCard() {
             infoCard.classList.add('active');
             isCardOpen = true;
         }
 
-        // ====================
-        // FUNÇÃO: Fechar card de informações
-        // ====================
         function closeCard() {
             infoCard.classList.remove('active');
             isCardOpen = false;
         }
 
-        // ====================
-        // EVENT LISTENERS - Clicks
-        // ====================
         nextBtn.addEventListener('click', nextImage);
         prevBtn.addEventListener('click', prevImage);
         viewMoreBtn.addEventListener('click', openCard);
         imageContainer.addEventListener('click', (e) => {
-            // Abre o card apenas se não clicar no botão "Ver Mais"
             if (e.target !== viewMoreBtn) {
                 openCard();
             }
         });
         closeBtn.addEventListener('click', closeCard);
 
-        // ====================
-        // EVENT LISTENER - Teclado (setas)
-        // ====================
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') {
                 nextImage();
@@ -470,10 +466,6 @@
             }
         });
 
-        // ====================
-        // INICIALIZAÇÃO
-        // Carrega a primeira imagem ao abrir a página
-        // ====================
         updateGallery();
     </script>
 </body>
