@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pets</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
+</style>
+    <style>
+		
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 15px;
+    overflow: hidden;
+    padding-top: 25px;
+    display: flex;
+    justify-content: center;}
+
+    ul li {
+    float: none;}
+
+    ul li a {
+    color: #f946a4;
+    padding: 15px 17px;
+    display: block;
+    font-family: "lexend", system-ui;
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+    background-color: white;}
+
+    ul li a:hover:not(.active) {
+    background-color: #b7e022;
+    color: #0b92ce;}
+
+    ul li a.active {
+    color: white;
+    background-color: #f946a4;
+    text-shadow: 2px 2px black;}
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('./img/fundo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .gallery-container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .gallery-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .image-container {
+            width: 500px;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .view-more-btn {
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffe6f4;
+            color: #f946a4;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+			font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .view-more-btn:hover {
+            background: white;
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .arrow {
+            width: 50px;
+            height: 50px;
+            background: #ffe6f4;
+            border: none;
+            border-radius: 50%;
+            font-size: 30px;
+            color: #f946a4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arrow:hover {
+            background: white;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .arrow:active {
+            transform: scale(0.95);
+        }
+
+        .info-card {
+            background: #fff;
+            border-radius: 0; 
+            padding: 20px; 
+            box-shadow: none; 
+            border: 1px solid #ccc; 
+            width: 300px; 
+            font-family: 'Courier New', Courier, monospace; 
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+            border-bottom: none; 
+            position: center;
+			align-content: center;
+			margin-left: auto;
+		    margin-right: auto;
+        }
+		
+        .info-card::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; 
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-image: linear-gradient(to right, #ccc 50%, transparent 50%);
+            background-size: 10px 1px;
+        }
+		
+        .info-card.active {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 10px;
+        }
+		
+        .info-card h2 {
+            color: #f946a4; 
+            margin-bottom: 10px;
+            font-size: 40px; 
+            text-align: center; 
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #999;
+        }
+
+        .info-card p {
+            color: #333;
+            line-height: 1.4; 
+            margin-bottom: 10px;
+            font-size: 14px; 
+        }
+		
+       .close-btn {
+            background: #f946a4; 
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px; 
+            font-weight: 400; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            display: block; 
+            width: 100%;
+            font-family: 'Courier New', Courier, monospace; 
+			font-size: 12x;
+        }
+		
+        .close-btn:hover {
+			color: #f946a4;
+            background: #ffe6f4;
+            transform: none; 
+            box-shadow: none;
+        }
+
+        .position-indicator {
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+		.download-btn {
+            background: #f946a4; 
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px; 
+            font-weight: 400; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            display: block; 
+            width: auto ;
+			text-decoration: none; 
+			text-align: center;
+			margin-top: 15px; 
+			margin-bottom: 15px;
+			font-size: 12x;
+		}
+
+		.download-btn:hover {
+			color: #f946a4;
+            background: #ffe6f4;
+            transform: none; 
+            box-shadow: none;
+		}
+		
+        @media (max-width: 768px) {
+            .image-container {
+                width: 350px;
+                height: 350px;
+            }
+
+            .arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .info-card h2 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .image-container {
+                width: 280px;
+                height: 280px;
+            }
+
+            .gallery-wrapper {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+	
+    <div class="gallery-container">
+		
+        <div class="gallery-wrapper">
+			
+            <button class="arrow" id="prevBtn" aria-label="Imagem anterior">←</button>
+            
+            <div class="image-container" id="imageContainer">
+                <img id="mainImage" src="" alt="">
+                <button class="view-more-btn" id="viewMoreBtn">Adote!</button>
+            </div>
+            
+            <button class="arrow" id="nextBtn" aria-label="Próxima imagem">→</button>
+        </div>
+
+        <div class="position-indicator" id="positionIndicator"></div>
+
+        <div class="info-card" id="infoCard">
+            <h2 id="cardTitle"></h2>
+            <p id="cardDescription"></p>
+			<a id="downloadLink" class="download-btn" href="#" target="_blank">Certificado de adoção!</a> 
+
+			<button class="close-btn" id="closeBtn">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+		
+        const images = [
+            {
+                url: './img/yoki.png',
+                title: 'YOKI',
+                description: 'Parabéns! Seu novo bichinho de estimação é um gato gordo chamado Yoki! Ele é comilão por isso o nome de pipoca. Sua atividade favorita é roubar comidinhas junto do Xoli, ele também tem hiperfoco em papelão.'
+            },
+            {
+                url: './img/mihree.png',
+                title: 'MIHRI',
+                description: 'Parabéns! Seu novo bichinho de estimação é uma raposa risonha chamada Mihri! Ela rola no chão quando tem crise de riso, o que acontece (quase) sempre. Se o patuxo estiver por perto pode ter certeza que irá acontecer com mais frequência...'
+            },
+            {
+                url: './img/patuxo.png',
+                title: 'PATUXO',
+                description: 'Parabéns! Seu novo bichinho de estimação é um filhote de ganso chamado Patuxo! As aparências (e o nome também) podem enganar mas ele não é um pato! O processamento dele é um pouco lento (ele pisca um olho de cada vez) mas é só cuidar com carinho que vive bastante!'
+            },
+            {
+                url: './img/xoli.png',
+                title: 'XOLI',
+                description: 'Parabéns! Seu novo bichinho de estimação é um guaxinim ladrão (!) chamado Xoli. Não se preocupe que ele só rouba comida, só não bobear com lanchinhos por perto... Ele também recorre ao lixo as vezes, tome cuidado.'
+            },
+            {
+                url: './img/chilly.png',
+                title: 'CHILLY',
+                description: 'Parabéns! Seu novo bichinho de estimação é uma coruja sonolenta chamada Chilly. Ele consegue dormir em qualquer canto, podem chamá-lo de Cochilly de tantos cochilos tirados nos mais diversos lugares! Talvez seja a alma de idoso dele, dorme que nem vê.'
+            },
+            {
+                url: './img/moomooo.png',
+                title: 'MOOMOO',
+                description: 'Parabéns! Seu novo bichinho de estimação é uma vaquinha chamada MooMoo, ela ama abraços e de estar por perto. '
+            }
+        ];
+
+        // ====================
+        // VARIÁVEIS GLOBAIS
+        // ====================
+        let currentIndex = 0; // Índice da imagem atual
+        let isCardOpen = false; // Estado do card de informações
+
+        // ====================
+        // ELEMENTOS DO DOM
+        // ====================
+		const mainImage = document.getElementById('mainImage');
+		const imageContainer = document.getElementById('imageContainer');
+		const infoCard = document.getElementById('infoCard');
+		const cardTitle = document.getElementById('cardTitle');
+		const cardDescription = document.getElementById('cardDescription');
+		const positionIndicator = document.getElementById('positionIndicator');
+		const prevBtn = document.getElementById('prevBtn');
+		const nextBtn = document.getElementById('nextBtn');
+		const viewMoreBtn = document.getElementById('viewMoreBtn');
+		const closeBtn = document.getElementById('closeBtn');
+		const openImageLink = document.getElementById('downloadLink');
+        // ====================
+        // FUNÇÃO: Atualizar imagem e informações
+        // ====================
+		function updateGallery() {
+    const current = images[currentIndex];
+    
+    // Fade out
+    mainImage.style.opacity = '0';
+    
+    // Após a transição, atualiza a imagem
+    setTimeout(() => {
+        mainImage.src = current.url;
+        mainImage.alt = current.title;
+        cardTitle.textContent = current.title;
+        cardDescription.textContent = current.description;
+        
+        // CHAVE: Define o HREF para abrir a imagem (Exemplo: ./certs/yoki.jpg)
+        // Você deve ter a pasta 'certs/' com imagens correspondentes (JPG, PNG, etc.)
+        const petName = current.title.toLowerCase();
+        openImageLink.href = `./img/certificado.png`; 
+        
+        // Fade in
+        mainImage.style.opacity = '1';
+    }, 300);
+
+    // Atualiza indicador de posição
+    positionIndicator.textContent = `${currentIndex + 1} / ${images.length}`;
+    
+    // Fecha o card ao trocar de imagem
+    closeCard();
+}
+/* ... (Mantenha o restante das funções e Event Listeners) ... */
+        // ====================
+        // FUNÇÃO: Navegar para a próxima imagem
+        // ====================
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateGallery();
+        }
+
+        // ====================
+        // FUNÇÃO: Navegar para a imagem anterior
+        // ====================
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateGallery();
+        }
+
+        // ====================
+        // FUNÇÃO: Abrir card de informações
+        // ====================
+        function openCard() {
+            infoCard.classList.add('active');
+            isCardOpen = true;
+        }
+
+        // ====================
+        // FUNÇÃO: Fechar card de informações
+        // ====================
+        function closeCard() {
+            infoCard.classList.remove('active');
+            isCardOpen = false;
+        }
+
+        // ====================
+        // EVENT LISTENERS - Clicks
+        // ====================
+        nextBtn.addEventListener('click', nextImage);
+        prevBtn.addEventListener('click', prevImage);
+        viewMoreBtn.addEventListener('click', openCard);
+        imageContainer.addEventListener('click', (e) => {
+            // Abre o card apenas se não clicar no botão "Ver Mais"
+            if (e.target !== viewMoreBtn) {
+                openCard();
+            }
+        });
+        closeBtn.addEventListener('click', closeCard);
+
+        // ====================
+        // EVENT LISTENER - Teclado (setas)
+        // ====================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextImage();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            } else if (e.key === 'Escape' && isCardOpen) {
+                closeCard();
+            }
+        });
+
+        // ====================
+        // INICIALIZAÇÃO
+        // Carrega a primeira imagem ao abrir a página
+        // ====================
+        updateGallery();
+    </script>
+</body>
+</html>
