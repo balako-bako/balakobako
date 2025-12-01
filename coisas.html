@@ -5,93 +5,267 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeria de Fotos Sobrepostas</title>
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
-</style>
-    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-    ul {
-    list-style-type: none;
-    margin: 0px;
-    padding: 5px;
-    overflow: hidden;
-    top: 0;}
-    ul li {
-    float: left;}
-    ul li a {
-    color: #f946a4;
-    padding: 15px 17px;
-    display: block;
-    font-family: "lexend", system-ui;
-    font-size: 30px;
-    text-align: center;
-    text-decoration: none;
-    background-color: white;}
-    ul li a:hover:not(.active) {
-    background-color: #b7e022;
-    color: #0b92ce;}
-    ul li a.active {
-    color: white;
-    background-color: #f946a4;
-    text-shadow: 2px 2px black;}
+
+        /* Menu de Navegação */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 5px;
+            overflow: hidden;
+            top: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        ul li {
+            float: none;
+        }
+
+        ul li a {
+            color: #f946a4;
+            padding: 15px 17px;
+            display: block;
+            font-family: "lexend", system-ui;
+            font-size: 30px;
+            text-align: center;
+            text-decoration: none;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        ul li a:hover:not(.active) {
+            background-color: #b7e022;
+            color: #0b92ce;
+        }
+
+        ul li a.active {
+            color: white;
+            background-color: #f946a4;
+            text-shadow: 2px 2px black;
+        }
+
         body {
             background-image: url("imagens/bckgrd_pattern.jpg");
-            min-height: 40px;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 20px;
         }
+
         h1 {
-            margin: 5px;}
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        h1 img {
+            max-width: 100%;
+            height: auto;
+            width: 300px;
+        }
         
         p {
             color: #f946a4;
             font-family: "lexend", sans-serif;
-            font-size: 30px;}
+            font-size: 30px;
+            line-height: 1.6;
+        }
         
-        /* Novo container para os dois elementos lado a lado */
+        /* Container wrapper responsivo */
         .containers-wrapper {
             display: flex;
             gap: 20px;
             max-width: 1900px;
+            width: 100%;
             margin: 20px auto;
             flex-wrap: wrap;
             justify-content: center;
+            padding: 0 10px;
         }
         
-        .text-container{
-            background-color: rgba(255,255,255, 0.9);
-            padding: 10px;
+        .text-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
             border-radius: 15px;
             max-width: 1000px;
+            width: 100%;
             margin: 0;
             text-align: center;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-       
+
+        /* RESPONSIVIDADE */
+
+        /* Tablets */
+        @media (max-width: 1024px) {
+            ul li a {
+                font-size: 24px;
+                padding: 12px 14px;
+            }
+
+            h1 img {
+                width: 250px;
+            }
+
+            p {
+                font-size: 26px;
+            }
+
+            .text-container {
+                padding: 35px;
+                max-width: 90%;
+            }
+
+            .containers-wrapper {
+                gap: 15px;
+            }
+        }
+
+        /* Smartphones */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            ul {
+                padding: 5px 2px;
+            }
+
+            ul li a {
+                font-size: 16px;
+                padding: 10px 12px;
+            }
+
+            h1 {
+                margin: 15px 0;
+            }
+
+            h1 img {
+                width: 200px;
+            }
+
+            p {
+                font-size: 20px;
+                line-height: 1.5;
+            }
+
+            .text-container {
+                padding: 25px;
+                border-radius: 12px;
+                max-width: 95%;
+            }
+
+            .containers-wrapper {
+                margin: 15px auto;
+                gap: 10px;
+                padding: 0 5px;
+            }
+        }
+
+        /* Smartphones pequenos */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            ul li a {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+
+            h1 {
+                margin: 10px 0;
+            }
+
+            h1 img {
+                width: 150px;
+            }
+
+            p {
+                font-size: 16px;
+                line-height: 1.4;
+            }
+
+            .text-container {
+                padding: 20px;
+                border-radius: 10px;
+                max-width: 100%;
+            }
+
+            .containers-wrapper {
+                margin: 10px auto;
+                gap: 8px;
+            }
+        }
+
+        /* Landscape em smartphones */
+        @media (max-width: 768px) and (orientation: landscape) {
+            h1 img {
+                width: 180px;
+            }
+
+            p {
+                font-size: 18px;
+            }
+
+            .text-container {
+                padding: 20px;
+                max-width: 85%;
+            }
+        }
+
+        /* Telas muito pequenas */
+        @media (max-width: 360px) {
+            ul li a {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+
+            h1 img {
+                width: 120px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .text-container {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <ul> 
-            <li><a class="active">Convite</a></li>
-            <li><a href="balako_galeria.html">Álbum de fotos</a></li>
-            <li><a href="coisas.html" href="index.html">Projeto</a></li>
-            <li><a href="amaevinhos.html">Adoção</a></li>
-        </ul>
-    <h1><img src="imagens/logo_balako.png" width="300px" height="auto" > </h1>
+        <li><a href="index.html">Convite</a></li>
+        <li><a href="balako_galeria.html">Álbum de fotos</a></li>
+        <li><a class="active" href="coisas.html">Projeto</a></li>
+        <li><a href="amaevinhos.html">Adoção</a></li>
+    </ul>
+
+    <h1>
+        <img src="imagens/logo_balako.png" alt="Logo BalakoBako"> 
+    </h1>
     
     <div class="containers-wrapper">
-        <div class="text-container" >
-            <p> “BalakoBako” nasce da vontade de inovar o formato de vendas e distribuição de músicas no Brasil, resgatando a essência do objeto físico como um elemento de conexão genuína entre artista e fãs. Inspirado no mercado de K-pop, reconhecido por transformar o produto musical em uma experiência imersiva e afetiva, o projeto busca aproximar os fãs oferecendo algo além do simples conteúdo sonoro.
-
-Para fundamentar o projeto, realizamos um estudo inicial da indústria musical e seu contexto histórico, explorando tendências contemporâneas como a alta do colecionismo, o retorno da estética Y2K e a cultura de fã no K-pop. A pesquisa também se debruçou sobre referências visuais e materiais presentes nos álbuns físicos sul-coreanos e nos objetos culturais icônicos dos anos 2000, buscando compreender como esses elementos constroem experiências memoráveis e fortalecem o vínculo afetivo entre público e artista.
+        <div class="text-container">
+            <p>
+                "BalakoBako" nasce da vontade de inovar o formato de vendas e distribuição de músicas no Brasil, resgatando a essência do objeto físico como um elemento de conexão genuína entre artista e fãs. Inspirado no mercado de K-pop, reconhecido por transformar o produto musical em uma experiência imersiva e afetiva, o projeto busca aproximar os fãs oferecendo algo além do simples conteúdo sonoro.
+                <br><br>
+                Para fundamentar o projeto, realizamos um estudo inicial da indústria musical e seu contexto histórico, explorando tendências contemporâneas como a alta do colecionismo, o retorno da estética Y2K e a cultura de fã no K-pop. A pesquisa também se debruçou sobre referências visuais e materiais presentes nos álbuns físicos sul-coreanos e nos objetos culturais icônicos dos anos 2000, buscando compreender como esses elementos constroem experiências memoráveis e fortalecem o vínculo afetivo entre público e artista.
             </p>
-        </div>
         </div>
     </div>
 </body>
