@@ -5,43 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revelador de Convite</title>
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
-</style>
-    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-    ul {
-    list-style-type: none;
-    margin: 0px;
-    padding: 5px;
-    overflow: hidden;
-    top: 0;}
+        /* Menu de Navegação */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 5px;
+            overflow: hidden;
+            top: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    ul li {
-    float: left;}
+        ul li {
+            float: none;
+        }
 
-    ul li a {
-    color: #f946a4;
-    padding: 15px 17px;
-    display: block;
-    font-family: "lexend", system-ui;
-    font-size: 30px;
-    text-align: center;
-    text-decoration: none;
-	background-color: white;}
+        ul li a {
+            color: #f946a4;
+            padding: 15px 17px;
+            display: block;
+            font-family: "lexend", system-ui;
+            font-size: 30px;
+            text-align: center;
+            text-decoration: none;
+            background-color: white;
+        }
 
-    ul li a:hover:not(.active) {
-    background-color: #b7e022;
-	color: #0b92ce;}
+        ul li a:hover:not(.active) {
+            background-color: #b7e022;
+            color: #0b92ce;
+        }
 
-    ul li a.active {
-    color: white;
-    background-color: #f946a4;
-	text-shadow: 2px 2px black;}
+        ul li a.active {
+            color: white;
+            background-color: #f946a4;
+            text-shadow: 2px 2px black;
+        }
 
         body {
             margin: 0;
@@ -50,30 +58,38 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 10px;
+            min-height: 100vh;
             background: white;
-            font-family:"lexend", sans-serif;
+            font-family: "lexend", sans-serif;
             background-image: url(imagens/bckg_02.png);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
  
         p {
             color: white;
-            margin-bottom: 0px;
+            margin-bottom: 20px;
             font-size: 40px;
-			text-shadow: 2px 2px 4px black;
-			padding-top: 50px;
+            text-shadow: 2px 2px 4px black;
+            padding-top: 30px;
+            text-align: center;
         }
 
         .container {
             perspective: 1000px;
-            width: 1800px;
-            height: 800px;
+            width: 100%;
+            max-width: 1800px;
+            height: auto;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .card {
             position: relative;
             width: 100%;
-            height: 100%;
+            height: 0;
+            padding-bottom: 44.44%; /* Proporção 1800x800 = 44.44% */
             transform-style: preserve-3d;
             transition: transform 0.8s ease;
             cursor: pointer;
@@ -86,10 +102,13 @@
         .card-face {
             position: absolute;
             width: 100%;
-            height: 80%;
+            height: 100%;
+            top: 0;
+            left: 0;
             backface-visibility: hidden;
-            border-radius: none;
+            border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .card-front {
@@ -103,18 +122,140 @@
         .image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
+        }
+
+        /* Indicador de clique */
+        .click-hint {
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 1px 1px 3px black;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* RESPONSIVIDADE */
+
+        /* Tablets */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 900px;
+            }
+
+            p {
+                font-size: 36px;
+                padding-top: 20px;
+            }
+
+            ul li a {
+                font-size: 24px;
+                padding: 12px 14px;
+            }
+
+            .click-hint {
+                font-size: 16px;
+            }
+        }
+
+        /* Smartphones */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            ul {
+                padding: 5px 2px;
+            }
+
+            ul li a {
+                font-size: 16px;
+                padding: 10px 12px;
+            }
+
+            p {
+                font-size: 28px;
+                padding-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            .card-face {
+                border-radius: 8px;
+            }
+
+            .click-hint {
+                font-size: 14px;
+                margin-top: 15px;
+            }
+        }
+
+        /* Smartphones pequenos */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            ul li a {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+
+            p {
+                font-size: 22px;
+                padding-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .container {
+                padding: 0 5px;
+            }
+
+            .card-face {
+                border-radius: 5px;
+            }
+
+            .click-hint {
+                font-size: 12px;
+                margin-top: 10px;
+            }
+        }
+
+        /* Landscape em smartphones */
+        @media (max-width: 768px) and (orientation: landscape) {
+            body {
+                min-height: auto;
+            }
+
+            p {
+                padding-top: 10px;
+                margin-bottom: 10px;
+                font-size: 24px;
+            }
+
+            .container {
+                max-width: 80%;
+            }
         }
     </style>
 </head>
 <body>
     <ul> 
-            <li><a class="active" href="index.html">Convite</a></li>
-            <li><a href="balako_galeria.html">Álbum de fotos</a></li>
-            <li><a href="coisas.html">Projeto</a></li>
-            <li><a href="amaevinhos.html">Adoção</a></li>
-        </ul>
+        <li><a class="active" href="index.html">Convite</a></li>
+        <li><a href="balako_galeria.html">Álbum de fotos</a></li>
+        <li><a href="coisas.html">Projeto</a></li>
+        <li><a href="amaevinhos.html">Adoção</a></li>
+    </ul>
+
     <p>VOCÊ FOI CONVIDADO!!</p>
     
     <div class="container">
@@ -135,12 +276,38 @@
         </div>
     </div>
 
+    <div class="click-hint">👆 Clique no convite para virar</div>
+
     <script>
         const card = document.getElementById('card');
-
+        
         card.addEventListener('click', function() {
             this.classList.toggle('flipped');
         });
+
+        // Suporte para touch em dispositivos móveis
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        card.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        card.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left - vira o card
+                card.classList.add('flipped');
+            }
+            if (touchEndX > touchStartX + 50) {
+                // Swipe right - desvira o card
+                card.classList.remove('flipped');
+            }
+        }
     </script>
 </body>
 </html>
