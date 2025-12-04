@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pets</title>
+    <title>amaevinhos</title>
+	
+	    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Lexend:wght@100..900&family=Outfit&display=swap" rel="stylesheet">
+	
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@599&family=Momo+Trust+Sans:wght@200..800&display=swap');
-</style>
-    <style>
-        
-         * {
+
+		* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-    ul {
+        
+        ul {
             list-style-type: none;
             margin: 0;
             padding: 5px;
@@ -55,18 +56,17 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url(imagens/backg_03.jpg);
+            background-image: url('./imagens/fundo.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            position: relative;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: flex-start; 
             padding: 20px;
-            padding-top: 120px;
         }
 
         body::before {
@@ -79,9 +79,23 @@
             z-index: -1;
         }
 
+        .header-title {
+            margin-bottom: 30px;
+			margin-top: 10px;
+        }
+
+        .header-title img {
+            max-width: 100%;
+            width: 300px; 
+            height: auto;
+            max-width: 90vw; 
+        }
+
         .gallery-container {
             max-width: 800px;
             width: 100%;
+            margin: 0 auto; 
+            margin-bottom: 20px; 
         }
 
         .gallery-wrapper {
@@ -163,125 +177,93 @@
 
         .info-card {
             background: #fff;
-            border-radius: 0; 
-            padding: 20px; 
-            box-shadow: none; 
-            border: 1px solid #ccc; 
-            width: 300px; 
-            font-family: 'Courier New', Courier, monospace; 
+            border-radius: 8px; /* Adicionado um border-radius para consistência */
+            padding: 20px;  
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra ajustada */
+            width: 500px; /* Alinhado com a largura da imagem */
+            font-family: 'Courier New', Courier, monospace;
             max-height: 0;
             overflow: hidden;
             opacity: 0;
             transition: all 0.4s ease;
-            border-bottom: none; 
-            position: center;
-            align-content: center;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
         }
-        
-        .info-card::after {
-            content: '';
-            position: absolute;
-            bottom: -1px; 
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background-image: linear-gradient(to right, #ccc 50%, transparent 50%);
-            background-size: 10px 1px;
-        }
-        
+
+        /* Removido o pseudo-elemento ::after desnecessário */
+
         .info-card.active {
             max-height: 500px;
             opacity: 1;
-            margin-top: 10px;
+            margin-top: 20px; /* Aumentei a margem para separar melhor */
+            border: 1px solid #f946a4; /* Borda de destaque */
         }
-        
+
         .info-card h2 {
-            color: #f946a4; 
+            color: #f946a4;
             margin-bottom: 10px;
-            font-size: 40px; 
-            text-align: center; 
+            font-size: 40px;
+            text-align: center;
             padding-bottom: 5px;
-            border-bottom: 1px dashed #999;
+            border-bottom: 2px solid #f946a4; /* Borda de destaque mais forte */
         }
 
         .info-card p {
             color: #333;
-            line-height: 1.4; 
+            line-height: 1.4;
             margin-bottom: 10px;
-            font-size: 14px; 
+            font-size: 16px; /* Aumentado um pouco o tamanho da fonte */
         }
-        
-       .close-btn {
-            background: #f946a4; 
+
+        .close-btn, .download-btn {
+            background: #f946a4;
             color: white;
             border: none;
-            padding: 8px 20px;
-            border-radius: 4px; 
-            font-weight: 400; 
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 400;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: none;
-            display: block; 
+            display: block;
             width: 100%;
-            font-family: 'Courier New', Courier, monospace; 
-            font-size: 12x;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 10px;
         }
         
-        .close-btn:hover {
+        .download-btn {
+            margin-bottom: 15px;
+        }
+
+        .close-btn:hover, .download-btn:hover {
             color: #f946a4;
             background: #ffe6f4;
-            transform: none; 
-            box-shadow: none;
+            transform: none;
         }
 
         .position-indicator {
             text-align: center;
-            color: white;
-            font-size: 14px;
+            color: #ffe6f4; /* Cor mais visível sobre o fundo */
+            font-size: 16px;
             margin-top: 15px;
-            font-weight: 500;
-        }
-        .download-btn {
-            background: #f946a4; 
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 4px; 
-            font-weight: 400; 
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: none;
-            display: block; 
-            width: auto ;
-            text-decoration: none; 
-            text-align: center;
-            margin-top: 15px; 
-            margin-bottom: 15px;
-            font-size: 12x;
-        }
-
-        .download-btn:hover {
-            color: #f946a4;
-            background: #ffe6f4;
-            transform: none; 
-            box-shadow: none;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
+        /* -------------------------- */
+        /* 3. MEDIA QUERIES           */
+        /* -------------------------- */
         @media (max-width: 768px) {
-            ul li a {
-                font-size: 20px;
-                padding: 10px 12px;
-            }
-            
-            body {
-                padding-top: 100px;
-            }
-            
             .image-container {
                 width: 350px;
                 height: 350px;
+            }
+            
+            .info-card {
+                width: 350px;
             }
 
             .arrow {
@@ -291,30 +273,20 @@
             }
 
             .info-card h2 {
-                font-size: 24px;
+                font-size: 28px;
             }
         }
 
         @media (max-width: 480px) {
-            ul {
-                padding: 10px 5px;
-                padding-top: 15px;
-            }
-            
-            ul li a {
-                font-size: 16px;
-                padding: 8px 10px;
-            }
-            
-            body {
-                padding-top: 80px;
-            }
-            
             .image-container {
                 width: 280px;
                 height: 280px;
             }
 
+            .info-card {
+                width: 280px;
+            }
+            
             .gallery-wrapper {
                 gap: 10px;
             }
@@ -324,11 +296,17 @@
 <body>
 
     <ul> 
-            <li><a href="index.html">Convite</a></li>
-            <li><a href="balako_galeria.html">Álbum de fotos</a></li>
-            <li><a href="coisas.html">Projeto</a></li>
-            <li><a class="active" href="amaevinhos.html">Adoção</a></li>
-        </ul>
+        <li><a href="index.html">Convite</a></li>
+        <li><a href="balako_galeria.html">Álbum de fotos</a></li>
+        <li><a href="coisas.html">Projeto</a></li>
+        <li><a class="active" href="amaevinhos.html">Petz</a></li>
+        <li><a href="balako.html">Quiz</a></li>
+    </ul>
+
+    <header class="header-title">
+        <img src="imagens/petz.png" alt="Logo Petz">
+    </header>
+
     
     <div class="gallery-container">
         
@@ -358,6 +336,7 @@
     <script>
         
         const images = [
+            // Seus dados...
             {
                 url: './imagens/yoki.png',
                 title: 'YOKI',
@@ -390,9 +369,15 @@
             }
         ];
 
-        let currentIndex = 0;
-        let isCardOpen = false;
+        // ====================
+        // VARIÁVEIS GLOBAIS
+        // ====================
+        let currentIndex = 0; // Índice da imagem atual
+        let isCardOpen = false; // Estado do card de informações
 
+        // ====================
+        // ELEMENTOS DO DOM
+        // ====================
         const mainImage = document.getElementById('mainImage');
         const imageContainer = document.getElementById('imageContainer');
         const infoCard = document.getElementById('infoCard');
@@ -404,59 +389,86 @@
         const viewMoreBtn = document.getElementById('viewMoreBtn');
         const closeBtn = document.getElementById('closeBtn');
         const openImageLink = document.getElementById('downloadLink');
-
+        
+        // ====================
+        // FUNÇÃO: Atualizar imagem e informações
+        // ====================
         function updateGallery() {
             const current = images[currentIndex];
             
+            // Fade out
             mainImage.style.opacity = '0';
             
+            // Após a transição, atualiza a imagem
             setTimeout(() => {
                 mainImage.src = current.url;
                 mainImage.alt = current.title;
                 cardTitle.textContent = current.title;
                 cardDescription.textContent = current.description;
                 
-                const petName = current.title.toLowerCase();
+                // Define o HREF para o certificado (mantido como certificado.png)
                 openImageLink.href = `./imagens/certificado.png`; 
                 
+                // Fade in
                 mainImage.style.opacity = '1';
             }, 300);
 
+            // Atualiza indicador de posição
             positionIndicator.textContent = `${currentIndex + 1} / ${images.length}`;
             
+            // Fecha o card ao trocar de imagem
             closeCard();
         }
 
+        // ====================
+        // FUNÇÃO: Navegar para a próxima imagem
+        // ====================
         function nextImage() {
             currentIndex = (currentIndex + 1) % images.length;
             updateGallery();
         }
 
+        // ====================
+        // FUNÇÃO: Navegar para a imagem anterior
+        // ====================
         function prevImage() {
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             updateGallery();
         }
 
+        // ====================
+        // FUNÇÃO: Abrir card de informações
+        // ====================
         function openCard() {
             infoCard.classList.add('active');
             isCardOpen = true;
         }
 
+        // ====================
+        // FUNÇÃO: Fechar card de informações
+        // ====================
         function closeCard() {
             infoCard.classList.remove('active');
             isCardOpen = false;
         }
 
+        // ====================
+        // EVENT LISTENERS - Clicks
+        // ====================
         nextBtn.addEventListener('click', nextImage);
         prevBtn.addEventListener('click', prevImage);
         viewMoreBtn.addEventListener('click', openCard);
         imageContainer.addEventListener('click', (e) => {
+            // Abre o card apenas se não clicar no botão "Adote!"
             if (e.target !== viewMoreBtn) {
                 openCard();
             }
         });
         closeBtn.addEventListener('click', closeCard);
 
+        // ====================
+        // EVENT LISTENER - Teclado (setas)
+        // ====================
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') {
                 nextImage();
@@ -467,6 +479,10 @@
             }
         });
 
+        // ====================
+        // INICIALIZAÇÃO
+        // Carrega a primeira imagem ao abrir a página
+        // ====================
         updateGallery();
     </script>
 </body>

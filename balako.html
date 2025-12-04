@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qual maevinha você é?</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Lexend:wght@100..900&family=Outfit&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+   
+       ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 5px;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        ul li {
+            float: none;
+        }
+
+        ul li a {
+            color: #f946a4;
+            padding: 15px 17px;
+            display: block;
+            font-family: "lexend", system-ui;
+            font-size: 30px;
+            text-align: center;
+            text-decoration: none;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        ul li a:hover:not(.active) {
+            background-color: #b7e022;
+            color: #0b92ce;
+        }
+
+        ul li a.active {
+            color: white;
+            background-color: #f946a4;
+            text-shadow: 2px 2px black;
+        }
+
+        :root {
+            --c-white: #FFFFFF;
+            --c-green: #B7E022;
+            --c-pink: #F946A4;
+            --c-cyan: #99DEE0;
+            
+            --text-dark: #2d2d2d;
+            --text-gray: #666666;
+            --shadow: 0 12px 40px rgba(0,0,0,0.1);
+            --radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        body {
+            background-image: url('./imagens/backg_07.jpg');
+            background-size: cover; 
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-dark);
+            padding: 20px;
+        }
+        
+        .app-container {
+            background-color: #9cd8db;
+            width: 100%;
+            max-width: 550px;
+            border-radius: 2px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-top: 10px solid var(--c-pink);
+            transition: border-color 0.4s ease;
+        }
+
+        
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        
+        .btn {
+            background-color: var(--c-pink);
+            color: var(--c-white);
+            border: none;
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(249, 70, 164, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(249, 70, 164, 0.5);
+            filter: brightness(1.05);
+        }
+
+        .btn-option {
+            background-color: var(--c-white);
+            color: var(--text-dark);
+            border: 2px solid #f0f0f0;
+            text-align: left;
+            padding: 16px 24px;
+            font-weight: 600;
+            box-shadow: none;
+        }
+
+        .btn-option:hover {
+            border-color: var(--c-cyan);
+            background-color: #faffff;
+            color: var(--c-pink);
+        }
+
+        
+        .progress-wrapper {
+            width: 100%;
+            background-color: #f0f0f0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--c-green);
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        
+        .result-header {
+            background-color: #f9f9f9;
+            margin: -40px -40px 30px -40px; 
+            padding: 40px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        .char-img {
+            width: 250px; 
+            height: 250px;
+            border-radius: 0; 
+            border: none;
+            box-shadow: none;
+            
+            margin: 0 auto 10px auto;
+            display: block; 
+            object-fit: contain; 
+            background-color: transparent;
+        }
+		
+        .start-img {
+            width: 180px;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto 20px auto;
+            display: block;
+            border: none;
+        }
+
+        .vibe-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: var(--c-green);
+            color: #3f5200;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .result-desc {
+            font-size: 1rem;
+            color: #555;
+            text-align: justify;
+            text-align-last: center;
+        }
+
+        
+        .hide { display: none; }
+        
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        
+        @media (max-width: 400px) {
+            .app-container { padding: 25px; }
+            h1 { font-size: 1.5rem; }
+            .btn { padding: 14px 20px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <ul> 
+        <li><a href="index.html">Convite</a></li>
+        <li><a href="balako_galeria.html">Álbum de fotos</a></li>
+        <li><a href="coisas.html">Projeto</a></li>
+        <li><a href="amaevinhos.html">Petz</a></li>
+        <li><a class="active" href="balako.html">Quiz</a></li>
+    </ul>
+
+    <div class="app-container" id="app-card">
+        
+        <div id="start-screen" class="fade-in">
+            <img src="imagens/logo1.png" class="start-img" alt="Capa">
+            <h1 style="color: var(--c-pink);">Qual Maevinha você é?</h1>
+            <p>Responda 5 perguntas rápidas e descubra se você é Kitty, Xofa, Mianna, Mai, Yori ou Elly.</p>
+            <button class="btn" onclick="startQuiz()">Começar Teste</button>
+        </div>
+
+        
+        <div id="question-screen" class="hide">
+            <div class="progress-wrapper">
+                <div class="progress-fill" id="progress-bar"></div>
+            </div>
+            <h2 id="question-text">Pergunta...</h2>
+            <div id="answer-buttons">
+            </div>
+        </div>
+
+        
+        <div id="result-screen" class="hide">
+            <div class="result-header" id="result-header-bg">
+                
+                <img class="char-img" id="result-img" src="" alt="Personagem">
+                
+                <h1 id="result-name">Nome</h1>
+                <span class="vibe-badge" id="result-vibe">Vibe Aqui</span>
+            </div>
+            
+            <p id="result-desc" class="result-desc">Descrição completa do resultado.</p>
+            
+            <button class="btn" onclick="restartQuiz()">Refazer Teste</button>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // CONFIGURAÇÃO DOS DADOS
+        // ==========================================
+
+        // Mapeamento dos índices:
+        // 0: Kitty, 1: Xofa, 2: Mianna, 3: Mai, 4: Yori, 5: Elly
+
+        const resultsData = [
+            {
+                id: 0,
+                name: "Kitty",
+                color: "#f8bcd6", 
+                vibe: "Glitter Ambulante",
+                desc: "A Kitty explode energia. Super alegre, super animada e fã número 1 dos próprios interesses. Adora toque físico, abraços e conversar até virar madrugada. Cosplayer dedicada e apaixonada por T-pop, ela é o tipo de amiga que transforma qualquer conversa numa montanha-russa emotiva.",
+                image: "imagens/kitty.png"
+            },
+            {
+                id: 1,
+                name: "Xofa",
+                color: "#7d5980", 
+                vibe: "Emo Cansada",
+                desc: "Xofa começa tímida, mas quando o papo vira anime, j-rock ou cosplay… acabou, ela fala MESMO. Observadora, meio misteriosa e totalmente acolhedora quando pega intimidade. Parece quietinha (e é) mas tem um humor ácido escondido no bolso.",
+                image: "imagens/xofa.png"
+            },
+            {
+                id: 2,
+                name: "Mianna",
+                color: "#c8a1cb", 
+                vibe: "Diva-Caos",
+                desc: "Mianna é pura performance. Ama dançar, ama rir, ama causar. É femme fatale, mas só até te dar um sorrisão que desmonta tudo. Ri tão forte que cai no chão e te puxa junto. A amiga que mete medo e amor ao mesmo tempo — combo perfeito.",
+                image: "imagens/mianna.png"
+            },
+            {
+                id: 3,
+                name: "Mai",
+                color: "#f282aa", 
+                vibe: "Mascote",
+                desc: "Mai é doce, fofa e um pouquinho perdida, do tipo que chega sorrindo antes mesmo de entender o que tá acontecendo. Ela sente tudo com intensidade: é bem emotiva, chorona às vezes, mas de um jeito que só aumenta o carinho que as pessoas têm por ela. Sua presença deixa qualquer ambiente mais leve.",
+                image: "imagens/mai.png"
+            },
+            {
+                id: 4,
+                name: "Yori",
+                color: "#f48fae",
+                vibe: "Desastre Responsável",
+                desc: "Yori é atrapalhada, gentil e cheia de doçura, mas vira adulta funcional no exato momento em que alguém precisa dela. Ama gatos, caos leve e também performances, qualquer oportunidade vira palco pra ela se expressar. Mesmo assim, mantém aquele jeitinho engraçado que conquista todo mundo.",
+                image: "imagens/yori.png"
+            },
+            {
+                id: 5,
+                name: "Elly",
+                color: "#ef5c23", 
+                vibe: "Palhaça ",
+                desc: "Elly é calma, organizada e carrega uma vibe acolhedora de “vó moderna”, sempre pronta pra dar conselho, bronca e colo no mesmo fôlego. Além disso, é naturalmente bem brincalhona, trazendo leveza e boas risadas pro grupo. Obcecada por Fórmula 1, é o tipo de pessoa que segura todo mundo sem nunca perder o humor.",
+                image: "imagens/elly.png"
+            }
+        ];
+
+			const questionsData = [
+    {
+        question: "Como você se comporta quando chega num rolê novo?",
+        answers: [
+            { text: "Já chego puxando assunto com geral", targets: [0, 2] }, // Kitty, Mianna
+            { text: "Fico no meu canto observando o clima", targets: [1] }, // Xofa
+            { text: "Vou seguindo o grupo até entender o ambiente", targets: [4] }, // Yori
+            { text: "Me perco um pouco, mas continuo sorrindo", targets: [3] }, // Mai
+            { text: "Assumo o controle e deixo tudo organizado", targets: [5] } // Elly
+        ]
+    },
+    {
+        question: "Qual é o seu jeitinho de demonstrar carinho?",
+        answers: [
+            { text: "Abraço forte e sem aviso", targets: [0] }, // Kitty
+            { text: "Ficar pertinho em silêncio confortável", targets: [1] }, // Xofa
+            { text: "Dançar, brincar e espalhar energia boa", targets: [2] }, // Mianna
+            { text: "Sorrisinhos tímidos e pequenos mimos", targets: [3] }, // Mai
+            { text: "Ajudar, organizar e resolver o que precisarem", targets: [4, 5] } // Yori, Elly
+        ]
+    },
+    {
+        question: "O que você escolheria pra um dia perfeito?",
+        answers: [
+            { text: "Montar cosplay ou conversar sobre meus fixos", targets: [0, 1] }, // Kitty, Xofa
+            { text: "Colocar música e dançar sem parar", targets: [2] }, // Mianna
+            { text: "Deitar com gatos e curtir o sossego", targets: [4] }, // Yori
+            { text: "Passear comprando coisas fofas", targets: [3] }, // Mai
+            { text: "Ver F1, arrumar tudo e ficar perfumada", targets: [5] } // Elly
+        ]
+    },
+    {
+        question: "Qual vibe combina mais com você?",
+        answers: [
+            { text: "Energia brilhante e caótica", targets: [0] }, // Kitty
+            { text: "Introspectiva com toque alternativo", targets: [1] }, // Xofa
+            { text: "Caos divertido com presença marcante", targets: [2] }, // Mianna
+            { text: "Mascote fofa e cheia de ternura", targets: [3] }, // Mai
+            { text: "Responsável, mas toda estabanada", targets: [4] }, // Yori
+            { text: "Vibe acolhedora de vó moderna", targets: [5] } // Elly
+        ]
+    },
+    {
+        question: "Quando você começa a rir…",
+        answers: [
+            { text: "Desabo de tanto rir, sem controle nenhum", targets: [2] }, // Mianna
+            { text: "Dou risada alta e já abraço alguém", targets: [0] }, // Kitty
+            { text: "Solto uns ‘kkk’ tímidos", targets: [1] }, // Xofa
+            { text: "Rio antes mesmo de entender a piada", targets: [3] }, // Mai
+            { text: "Dou uma risada boba e quentinha", targets: [4] }, // Yori
+            { text: "Rio de um jeito elegante, mas genuíno", targets: [5] } // Elly
+        ]
+    }
+];
+
+
+        // ==========================================
+        // LÓGICA DO SISTEMA
+        // ==========================================
+
+        let currentQuestionIndex = 0;
+        let scores = Array(6).fill(0); 
+
+        const startScreen = document.getElementById('start-screen');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionText = document.getElementById('question-text');
+        const answerButtonsElement = document.getElementById('answer-buttons');
+        const progressBar = document.getElementById('progress-bar');
+        const appCard = document.getElementById('app-card');
+
+        function startQuiz() {
+            startScreen.classList.add('hide');
+            questionScreen.classList.remove('hide');
+            questionScreen.classList.add('fade-in');
+            currentQuestionIndex = 0;
+            scores = Array(6).fill(0);
+            appCard.style.borderTopColor = "var(--c-pink)"; // Reset border color
+            setNextQuestion();
+        }
+
+        function setNextQuestion() {
+            resetState();
+            showQuestion(questionsData[currentQuestionIndex]);
+            updateProgressBar();
+        }
+
+        function showQuestion(question) {
+            questionText.innerText = question.question;
+            question.answers.forEach(answer => {
+                const button = document.createElement('button');
+                button.innerText = answer.text;
+                button.classList.add('btn', 'btn-option');
+                // Passa o array de targets
+                button.addEventListener('click', () => selectAnswer(answer.targets));
+                answerButtonsElement.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            while (answerButtonsElement.firstChild) {
+                answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+            }
+            questionScreen.classList.remove('fade-in'); 
+            void questionScreen.offsetWidth; // Trigger reflow
+            questionScreen.classList.add('fade-in');
+        }
+
+        function selectAnswer(targets) {
+            // Adiciona pontos para TODOS os personagens listados na resposta
+            targets.forEach(targetIndex => {
+                scores[targetIndex]++;
+            });
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questionsData.length) {
+                setTimeout(setNextQuestion, 250);
+            } else {
+                setTimeout(showResults, 250);
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex) / questionsData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function showResults() {
+            questionScreen.classList.add('hide');
+            resultScreen.classList.remove('hide');
+            resultScreen.classList.add('fade-in');
+
+            // Encontrar vencedor
+            let maxScore = -1;
+            let winnerIndices = [];
+
+            for (let i = 0; i < scores.length; i++) {
+                if (scores[i] > maxScore) {
+                    maxScore = scores[i];
+                    winnerIndices = [i];
+                } else if (scores[i] === maxScore) {
+                    winnerIndices.push(i);
+                }
+            }
+
+            // Desempate aleatório se necessário
+            const finalWinnerIndex = winnerIndices[Math.floor(Math.random() * winnerIndices.length)];
+            const result = resultsData[finalWinnerIndex];
+
+            // Renderizar dados
+            document.getElementById('result-name').innerText = result.name;
+            document.getElementById('result-name').style.color = result.color;
+            
+            document.getElementById('result-vibe').innerText = result.vibe;
+            
+            document.getElementById('result-desc').innerText = result.desc;
+            
+            const resultImg = document.getElementById('result-img');
+            resultImg.src = result.image;
+            // Removido: resultImg.style.borderColor = result.color; (não usamos mais borda na imagem)
+
+            appCard.style.borderTopColor = result.color;
+        }
+
+        function restartQuiz() {
+            resultScreen.classList.add('hide');
+            startScreen.classList.remove('hide');
+            startScreen.classList.add('fade-in');
+            appCard.style.borderTopColor = "var(--c-pink)";
+        }
+    </script>
+</body>
+</html>
