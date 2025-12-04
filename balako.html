@@ -15,7 +15,7 @@
         }
 
    
-       ul {
+        ul {
             list-style-type: none;
             margin: 0;
             padding: 5px;
@@ -85,7 +85,7 @@
             align-items: center;
             min-height: 100vh;
             color: var(--text-dark);
-            padding: 20px;
+            padding: 90px 20px 20px 20px;
         }
         
         .app-container {
@@ -200,7 +200,7 @@
             object-fit: contain; 
             background-color: transparent;
         }
-		
+        
         .start-img {
             width: 180px;
             max-width: 100%;
@@ -243,10 +243,54 @@
         }
 
         
-        @media (max-width: 400px) {
-            .app-container { padding: 25px; }
-            h1 { font-size: 1.5rem; }
-            .btn { padding: 14px 20px; font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            ul li a {
+                font-size: 20px;
+                padding: 12px 14px;
+            }
+            
+            body {
+                padding: 100px 15px 15px 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            ul {
+                padding: 3px;
+            }
+            
+            ul li a {
+                font-size: 16px;
+                padding: 10px 12px;
+            }
+            
+            body {
+                padding: 110px 10px 10px 10px;
+            }
+            
+            .app-container { 
+                padding: 25px; 
+            }
+            
+            h1 { 
+                font-size: 1.5rem; 
+            }
+            
+            .btn { 
+                padding: 14px 20px; 
+                font-size: 0.9rem; 
+            }
+        }
+        
+        @media (max-width: 360px) {
+            ul li a {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+            
+            body {
+                padding: 120px 10px 10px 10px;
+            }
         }
     </style>
 </head>
@@ -349,65 +393,65 @@
                 name: "Elly",
                 color: "#ef5c23", 
                 vibe: "Palhaça ",
-                desc: "Elly é calma, organizada e carrega uma vibe acolhedora de “vó moderna”, sempre pronta pra dar conselho, bronca e colo no mesmo fôlego. Além disso, é naturalmente bem brincalhona, trazendo leveza e boas risadas pro grupo. Obcecada por Fórmula 1, é o tipo de pessoa que segura todo mundo sem nunca perder o humor.",
+                desc: "Elly é calma, organizada e carrega uma vibe acolhedora de "vó moderna", sempre pronta pra dar conselho, bronca e colo no mesmo fôlego. Além disso, é naturalmente bem brincalhona, trazendo leveza e boas risadas pro grupo. Obcecada por Fórmula 1, é o tipo de pessoa que segura todo mundo sem nunca perder o humor.",
                 image: "imagens/elly.png"
             }
         ];
 
-			const questionsData = [
-    {
-        question: "Como você se comporta quando chega num rolê novo?",
-        answers: [
-            { text: "Já chego puxando assunto com geral", targets: [0, 2] }, // Kitty, Mianna
-            { text: "Fico no meu canto observando o clima", targets: [1] }, // Xofa
-            { text: "Vou seguindo o grupo até entender o ambiente", targets: [4] }, // Yori
-            { text: "Me perco um pouco, mas continuo sorrindo", targets: [3] }, // Mai
-            { text: "Assumo o controle e deixo tudo organizado", targets: [5] } // Elly
-        ]
-    },
-    {
-        question: "Qual é o seu jeitinho de demonstrar carinho?",
-        answers: [
-            { text: "Abraço forte e sem aviso", targets: [0] }, // Kitty
-            { text: "Ficar pertinho em silêncio confortável", targets: [1] }, // Xofa
-            { text: "Dançar, brincar e espalhar energia boa", targets: [2] }, // Mianna
-            { text: "Sorrisinhos tímidos e pequenos mimos", targets: [3] }, // Mai
-            { text: "Ajudar, organizar e resolver o que precisarem", targets: [4, 5] } // Yori, Elly
-        ]
-    },
-    {
-        question: "O que você escolheria pra um dia perfeito?",
-        answers: [
-            { text: "Montar cosplay ou conversar sobre meus fixos", targets: [0, 1] }, // Kitty, Xofa
-            { text: "Colocar música e dançar sem parar", targets: [2] }, // Mianna
-            { text: "Deitar com gatos e curtir o sossego", targets: [4] }, // Yori
-            { text: "Passear comprando coisas fofas", targets: [3] }, // Mai
-            { text: "Ver F1, arrumar tudo e ficar perfumada", targets: [5] } // Elly
-        ]
-    },
-    {
-        question: "Qual vibe combina mais com você?",
-        answers: [
-            { text: "Energia brilhante e caótica", targets: [0] }, // Kitty
-            { text: "Introspectiva com toque alternativo", targets: [1] }, // Xofa
-            { text: "Caos divertido com presença marcante", targets: [2] }, // Mianna
-            { text: "Mascote fofa e cheia de ternura", targets: [3] }, // Mai
-            { text: "Responsável, mas toda estabanada", targets: [4] }, // Yori
-            { text: "Vibe acolhedora de vó moderna", targets: [5] } // Elly
-        ]
-    },
-    {
-        question: "Quando você começa a rir…",
-        answers: [
-            { text: "Desabo de tanto rir, sem controle nenhum", targets: [2] }, // Mianna
-            { text: "Dou risada alta e já abraço alguém", targets: [0] }, // Kitty
-            { text: "Solto uns ‘kkk’ tímidos", targets: [1] }, // Xofa
-            { text: "Rio antes mesmo de entender a piada", targets: [3] }, // Mai
-            { text: "Dou uma risada boba e quentinha", targets: [4] }, // Yori
-            { text: "Rio de um jeito elegante, mas genuíno", targets: [5] } // Elly
-        ]
-    }
-];
+        const questionsData = [
+            {
+                question: "Como você se comporta quando chega num rolê novo?",
+                answers: [
+                    { text: "Já chego puxando assunto com geral", targets: [0, 2] }, // Kitty, Mianna
+                    { text: "Fico no meu canto observando o clima", targets: [1] }, // Xofa
+                    { text: "Vou seguindo o grupo até entender o ambiente", targets: [4] }, // Yori
+                    { text: "Me perco um pouco, mas continuo sorrindo", targets: [3] }, // Mai
+                    { text: "Assumo o controle e deixo tudo organizado", targets: [5] } // Elly
+                ]
+            },
+            {
+                question: "Qual é o seu jeitinho de demonstrar carinho?",
+                answers: [
+                    { text: "Abraço forte e sem aviso", targets: [0] }, // Kitty
+                    { text: "Ficar pertinho em silêncio confortável", targets: [1] }, // Xofa
+                    { text: "Dançar, brincar e espalhar energia boa", targets: [2] }, // Mianna
+                    { text: "Sorrisinhos tímidos e pequenos mimos", targets: [3] }, // Mai
+                    { text: "Ajudar, organizar e resolver o que precisarem", targets: [4, 5] } // Yori, Elly
+                ]
+            },
+            {
+                question: "O que você escolheria pra um dia perfeito?",
+                answers: [
+                    { text: "Montar cosplay ou conversar sobre meus fixos", targets: [0, 1] }, // Kitty, Xofa
+                    { text: "Colocar música e dançar sem parar", targets: [2] }, // Mianna
+                    { text: "Deitar com gatos e curtir o sossego", targets: [4] }, // Yori
+                    { text: "Passear comprando coisas fofas", targets: [3] }, // Mai
+                    { text: "Ver F1, arrumar tudo e ficar perfumada", targets: [5] } // Elly
+                ]
+            },
+            {
+                question: "Qual vibe combina mais com você?",
+                answers: [
+                    { text: "Energia brilhante e caótica", targets: [0] }, // Kitty
+                    { text: "Introspectiva com toque alternativo", targets: [1] }, // Xofa
+                    { text: "Caos divertido com presença marcante", targets: [2] }, // Mianna
+                    { text: "Mascote fofa e cheia de ternura", targets: [3] }, // Mai
+                    { text: "Responsável, mas toda estabanada", targets: [4] }, // Yori
+                    { text: "Vibe acolhedora de vó moderna", targets: [5] } // Elly
+                ]
+            },
+            {
+                question: "Quando você começa a rir…",
+                answers: [
+                    { text: "Desabo de tanto rir, sem controle nenhum", targets: [2] }, // Mianna
+                    { text: "Dou risada alta e já abraço alguém", targets: [0] }, // Kitty
+                    { text: "Solto uns 'kkk' tímidos", targets: [1] }, // Xofa
+                    { text: "Rio antes mesmo de entender a piada", targets: [3] }, // Mai
+                    { text: "Dou uma risada boba e quentinha", targets: [4] }, // Yori
+                    { text: "Rio de um jeito elegante, mas genuíno", targets: [5] } // Elly
+                ]
+            }
+        ];
 
 
         // ==========================================

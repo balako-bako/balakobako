@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>amaevinhos</title>
-	
-	    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Lexend:wght@100..900&family=Outfit&display=swap" rel="stylesheet">
-	
+    
+        <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Lexend:wght@100..900&family=Outfit&display=swap" rel="stylesheet">
+    
     <style>
 
-		* {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -21,10 +21,14 @@
             margin: 0;
             padding: 5px;
             overflow: hidden;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            z-index: 1000;
         }
 
         ul li {
@@ -66,7 +70,7 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: flex-start; 
-            padding: 20px;
+            padding: 90px 20px 20px 20px;
         }
 
         body::before {
@@ -81,7 +85,7 @@
 
         .header-title {
             margin-bottom: 30px;
-			margin-top: 10px;
+            margin-top: 10px;
         }
 
         .header-title img {
@@ -177,10 +181,10 @@
 
         .info-card {
             background: #fff;
-            border-radius: 8px; /* Adicionado um border-radius para consistência */
+            border-radius: 8px;
             padding: 20px;  
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra ajustada */
-            width: 500px; /* Alinhado com a largura da imagem */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 500px;
             font-family: 'Courier New', Courier, monospace;
             max-height: 0;
             overflow: hidden;
@@ -191,13 +195,11 @@
             position: relative;
         }
 
-        /* Removido o pseudo-elemento ::after desnecessário */
-
         .info-card.active {
             max-height: 500px;
             opacity: 1;
-            margin-top: 20px; /* Aumentei a margem para separar melhor */
-            border: 1px solid #f946a4; /* Borda de destaque */
+            margin-top: 20px;
+            border: 1px solid #f946a4;
         }
 
         .info-card h2 {
@@ -206,14 +208,14 @@
             font-size: 40px;
             text-align: center;
             padding-bottom: 5px;
-            border-bottom: 2px solid #f946a4; /* Borda de destaque mais forte */
+            border-bottom: 2px solid #f946a4;
         }
 
         .info-card p {
             color: #333;
             line-height: 1.4;
             margin-bottom: 10px;
-            font-size: 16px; /* Aumentado um pouco o tamanho da fonte */
+            font-size: 16px;
         }
 
         .close-btn, .download-btn {
@@ -246,7 +248,7 @@
 
         .position-indicator {
             text-align: center;
-            color: #ffe6f4; /* Cor mais visível sobre o fundo */
+            color: #ffe6f4;
             font-size: 16px;
             margin-top: 15px;
             font-weight: 600;
@@ -257,6 +259,15 @@
         /* 3. MEDIA QUERIES           */
         /* -------------------------- */
         @media (max-width: 768px) {
+            ul li a {
+                font-size: 20px;
+                padding: 12px 14px;
+            }
+            
+            body {
+                padding: 100px 15px 15px 15px;
+            }
+            
             .image-container {
                 width: 350px;
                 height: 350px;
@@ -278,6 +289,19 @@
         }
 
         @media (max-width: 480px) {
+            ul {
+                padding: 3px;
+            }
+            
+            ul li a {
+                font-size: 16px;
+                padding: 10px 12px;
+            }
+            
+            body {
+                padding: 110px 10px 10px 10px;
+            }
+            
             .image-container {
                 width: 280px;
                 height: 280px;
@@ -289,6 +313,17 @@
             
             .gallery-wrapper {
                 gap: 10px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            ul li a {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+            
+            body {
+                padding: 120px 10px 10px 10px;
             }
         }
     </style>
